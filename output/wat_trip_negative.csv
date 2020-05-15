@@ -1,0 +1,13 @@
+ADJ,ADJ_COUNT,ADP,ADP_COUNT,ADV,ADV_COUNT,AUX,AUX_COUNT,CCONJ,CCONJ_COUNT,DET,DET_COUNT,INTJ,INTJ_COUNT,NOUN,NOUN_COUNT,NUM,NUM_COUNT,PART,PART_COUNT,PRON,PRON_COUNT,PROPN,PROPN_COUNT,PUNCT,PUNCT_COUNT,SCONJ,SCONJ_COUNT,SYM,SYM_COUNT,VERB,VERB_COUNT,X,X_COUNT
+(ดี - ADJ),2,(ใน - ADP),2,(จึง - ADV),1, , ,(และ - CCONJ),3,(ดังนั้น - DET),1, , ,(ภูเก็ต - NOUN),2,(700b - NUM),1,(ไป - PART),3,(เรา - PRON),3, , , , , , , , ,(ตัดสินใจ - VERB),1, , 
+(ดั้งเดิม - ADJ),1,(ที่ - ADP),1, , , , , , , , , , ,(วัด - NOUN),2, , , , , , , , , , , , , , ,(จะ - VERB),1, , 
+(เก่า - ADJ),1,(ทาง - ADP),1, , , , , , , , , , ,(เยี่ยม - NOUN),1, , , , , , , , , , , , , , ,(ชม - VERB),1, , 
+ , ,(แท็กซี่ - ADP),1, , , , , , , , , , ,(วัฒนธรรม - NOUN),1, , , , , , , , , , , , , , ,(สถานที่ท่องเที่ยว - VERB),1, , 
+ , ,(จาก - ADP),1, , , , , , , , , , ,(แบบ - NOUN),1, , , , , , , , , , , , , , ,(นั่ง - VERB),1, , 
+ , ,(ของ - ADP),1, , , , , , , , , , ,(โรงแรม - NOUN),1, , , , , , , , , , , , , , ,(กะ - VERB),1, , 
+ , ,(แล้ว - ADP),1, , , , , , , , , , ,(ตะ - NOUN),1, , , , , , , , , , , , , , ,(วัด - VERB),1, , 
+ , ,(อย่าง - ADP),1, , , , , , , , , , ,(เมือง - NOUN),1, , , , , , , , , , , , , , ,(รอ - VERB),1, , 
+ , , , , , , , , , , , , , ,(เช็ค - NOUN),1, , , , , , , , , , , , , , ,(มี - VERB),1, , 
+ , , , , , , , , , , , , , ,(เอาท์ - NOUN),1, , , , , , , , , , , , , , ,(ตกแต่ง - VERB),1, , 
+ , , , , , , , , , , , , , ,(บริเวณ - NOUN),1, , , , , , , , , , , , , , ,(ดู - VERB),1, , 
+ , , , , , , , , , , , , , ,(การ - NOUN),1, , , , , , , , , , , , , , , , , , 
