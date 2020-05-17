@@ -394,7 +394,7 @@ def transform_pos_neg_bydomain(domain_name):
 
 #transform_pos_neg_bydomain("patong")
 
-def tf_idf_fun(domain_name) :
+def tf_idf_fun(domain_name,node) :
     lines = 0
     with open('./domain/'+domain_name+'_noun.csv', mode='r', encoding='utf-8') as csv_file:
         csv_reader = csv.DictReader(csv_file)
@@ -421,7 +421,7 @@ def tf_idf_fun(domain_name) :
     ##
     
     ##pos
-    with open('./domain/'+domain_name+'_pos.csv', mode='r', encoding='utf-8') as csv_file:
+    with open(f'./domain/{domain_name}_{node}.csv', mode='r', encoding='utf-8') as csv_file:
         csv_reader = csv.DictReader(csv_file)   
         for row in csv_reader:
             sentences = []
@@ -460,7 +460,7 @@ def tf_idf_fun(domain_name) :
                                 count_right +=1
                                 right +=1
                         index +=1
-    with open('./domain/'+domain_name+'_match_pos.csv', mode='w', newline='', encoding='utf-8') as writefile:
+    with open(f'./domain/{domain_name}_match_{node}.csv', mode='w', newline='', encoding='utf-8') as writefile:
         fieldnames = ["word","noun","position","range","index"]
         writer = csv.DictWriter(writefile, fieldnames=fieldnames)
         writer.writeheader()
@@ -489,7 +489,7 @@ def tf_idf_fun(domain_name) :
 
     words_frequency = []
     comments = []
-    with open('./domain/'+domain_name+'_pos.csv', mode='r', encoding='utf-8') as csv_file:
+    with open(f'./domain/{domain_name}_{node}.csv', mode='r', encoding='utf-8') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         
         for row in csv_reader:
@@ -519,10 +519,10 @@ def tf_idf_fun(domain_name) :
                             break
                     
     count_comment = 0
-    with open('./domain/'+domain_name+'_pos.csv', mode='r', encoding='utf-8') as csv_file:
+    with open(f'./domain/{domain_name}_{node}.csv', mode='r', encoding='utf-8') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         count_comment= len(list(csv_reader))
-    print(count_comment)
+    
     words_frequ_bf = dict(Counter(words_frequency))  # counting words  
     words_comment_f = dict(Counter(words_comment_f))  # counting words      
 
@@ -556,7 +556,66 @@ def tf_idf_fun(domain_name) :
         val_for_idf = count_comment/count_comment_f
         idf = math.log10(val_for_idf)
         tf_idf = tf * idf
-        print(word_c,tf,idf,tf_idf)
 
+        if node == "pos":
+            tf_idf_arr.append({"word":word_c,"tf-idf":tf_idf})
+        if node == "neg":
+            tf_idf_arr.append({"word":word_c,"tf-idf":-tf_idf})
 
-tf_idf_fun("patong")
+    return tf_idf_arr
+
+def find_tf_idf(domain_name):
+    tf_idf_pos = tf_idf_fun(domain_name,"pos")
+    tf_idf_neg = tf_idf_fun(domain_name,"neg")
+
+    tf_idf_pos_size = len(tf_idf_pos)
+    tf_idf_neg_size = len(tf_idf_neg)
+
+    tf_idf_bank_word = []
+    tfIdfObjs = []
+    all_len = []
+
+    for word in tf_idf_pos :
+        all_len.append(word["word"])
+    for word in tf_idf_neg:
+        all_len.append(word["word"])
+
+    all_len = dict(Counter(all_len))
+    tf_idf_size = len(all_len)
+
+    index = 0
+    for word_ in all_len :
+        tf_idf_pos_val = 0
+        tf_idf_neg_val = 0
+        for word in tf_idf_pos:
+            if word_.find(word["word"]) != -1:
+                tf_idf_pos_val = word["tf-idf"]
+                break
+        for word in tf_idf_neg:
+            if word_.find(word["word"]) != -1:
+                tf_idf_neg_val = word["tf-idf"]
+                break
+        
+
+        tf_idf_val = tf_idf_pos_val + tf_idf_neg_val
+
+        print(word_,tf_idf_pos_val,tf_idf_neg_val,tf_idf_val)
+        node_label = ""
+        if tf_idf_val > 0 :
+            node_label = "pos"
+        else :
+            node_label = "neg"
+        
+        tf_idf_bank_word.append({"word":word_,"tf-idf-pos":tf_idf_pos_val,"tf-idf-neg":tf_idf_neg_val,"tf-idf-val":tf_idf_val,"node-label":node_label})
+        index +=1
+
+    bankWordSorted = sorted(tf_idf_bank_word, key=lambda  tfIdf: tfIdf["tf-idf-val"],reverse=True)
+
+    with open(f'./domain/{domain_name}_tfidf.csv', mode='w', newline='', encoding='utf-8') as writefile:
+        fieldnames = ["word","tf-idf-pos","tf-idf-neg","tf-idf-val","node-label"]
+        writer = csv.DictWriter(writefile, fieldnames=fieldnames)
+        writer.writeheader()
+        for word in bankWordSorted :
+            writer.writerow(word)     
+
+find_tf_idf("patong")
