@@ -208,7 +208,8 @@ def tf_idf_fun(domain_name,node,percentile,type) :
                                 word_left = sentence[left]
                                 if (word_left.find("ADJ") != -1 and use_aj)or\
                                 (word_left.find("ADV") != -1 and use_av) or\
-                                (word_left.find("VERB") != -1 and use_vb):                                words_match.append({"word":word_left,"noun":noun
+                                (word_left.find("VERB") != -1 and use_vb):                                
+                                    words_match.append({"word":word_left,"noun":noun
                                     ,"position":"left","range":count_left,"index":left})
                                 count_left +=1
                                 left -=1
@@ -222,7 +223,7 @@ def tf_idf_fun(domain_name,node,percentile,type) :
                                 count_right +=1
                                 right +=1
                         index +=1
-    with open(f'./domain/{domain_name}_match_p{percentile}_{node}_.csv', mode='w', newline='', encoding='utf-8') as writefile:
+    with open(f'./domain/{domain_name}_match_p{percentile}_type{type}_{node}_.csv', mode='w', newline='', encoding='utf-8') as writefile:
         fieldnames = ["word","noun","position","range","index"]
         writer = csv.DictWriter(writefile, fieldnames=fieldnames)
         writer.writeheader()
@@ -248,8 +249,6 @@ def tf_idf_fun(domain_name,node,percentile,type) :
 ###frequency noun 
     words_noun_f = dict(Counter(words_noun_f))  # counting words
 
-
-    words_frequency = []
     comments = []
     with open(f'./domain/{domain_name}_{node}.csv', mode='r', encoding='utf-8') as csv_file:
         csv_reader = csv.DictReader(csv_file)
@@ -262,35 +261,25 @@ def tf_idf_fun(domain_name,node,percentile,type) :
             for line in comment.split('], ['):
                 word = list(line.split(','))
                 sentences.append(word)
-            for sentence in sentences :
-                for word in sentence:
-                    for word_c in words_forcheck :
-                        if word.find(word_c) !=-1:
-                            words_frequency.append(word_c)
             comments.append(sentences)
     words_comment_f = []
     for word_c in words_forcheck :
         for comment in comments:
             word_not_found = True
-            if word_not_found :
-                for sentence in comment:
+            for sentence in comment:
+                if word_not_found :
                     for word in sentence:
                         if word.find(word_c) !=-1:
                             words_comment_f.append(word_c)
                             word_not_found = False
-                            break
+                            #break
                     
     count_comment = 0
     with open(f'./domain/{domain_name}_{node}.csv', mode='r', encoding='utf-8') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         count_comment= len(list(csv_reader))
-    
-    words_frequ_bf = dict(Counter(words_frequency))  # counting words  
+
     words_comment_f = dict(Counter(words_comment_f))  # counting words      
-
-  #  for word in words_comment_f :
-  #      print(word,words_comment_f.get(word,''))
-
 
     tf_idf_arr = []
 
@@ -316,9 +305,11 @@ def tf_idf_fun(domain_name,node,percentile,type) :
 
         tf = count_f/count_overall_f
         val_for_idf = count_comment/count_comment_f
+        print(word_c,node,count_comment,count_comment_f)
         idf = math.log10(val_for_idf)
         tf_idf = tf * idf
-
+        #if tf_idf > 1:
+        #    print("p",percentile,"review",node,word_c,'tf(',count_f,"/",count_overall_f,") = ",tf,"idf(log10(",count_comment,"/",count_comment_f,")) = log10(",val_for_idf,") = ",idf,"tf-idf = ",tf_idf)
         if node == "pos":
             tf_idf_arr.append({"word":word_c,"tf-idf":tf_idf})
         if node == "neg":
@@ -378,7 +369,7 @@ def find_tf_idf(domain_name,percentile,type):
         for word in bankWordSorted :
             writer.writerow(word)     
 
-def main():
+def find_tfidf_main():
     percentiles = [95,90,85,80,75]
     for p in percentiles :
         type = 1 
@@ -386,4 +377,78 @@ def main():
             find_tf_idf("patong",p,type)
             type+=1
 
-main()
+def test_bank(domain_name,p,type):
+    bank_words = []
+    comments_pos = []
+    comments_neg = []
+    with open(f'./domain/{domain_name}_tfidf_p{p}_type{type}.csv', mode='r', encoding='utf-8') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for row in csv_reader:
+            word = row["word"]
+            node_label = row["node-label"]
+            bank_words.append({"word":word,"node":node_label})
+    
+    with open(f'./domain/{domain_name}_pos.csv', mode='r', encoding='utf-8') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for row in csv_reader:
+            sentences = []
+            comment = row["comment"]
+            comment = comment.replace("[[", "").replace("]]", "") 
+            ############ PROBLEMS IN FUTURE ############
+            for line in comment.split('], ['):
+                word = list(line.split(','))
+                sentences.append(word)
+            comments_pos.append(sentences)
+
+    with open(f'./domain/{domain_name}_neg.csv', mode='r', encoding='utf-8') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for row in csv_reader:
+            sentences = []
+            comment = row["comment"]
+            comment = comment.replace("[[", "").replace("]]", "") 
+            ############ PROBLEMS IN FUTURE ############
+            for line in comment.split('], ['):
+                word = list(line.split(','))
+                sentences.append(word)
+            comments_neg.append(sentences)
+    
+    results = check_by_comment(comments_pos,bank_words,"pos") + check_by_comment(comments_neg,bank_words,"neg")
+
+    for result in results:
+        print(result)
+        
+
+def check_by_comment(comments,bank_words,node):
+    
+    results = []
+    
+    for comment in comments:
+        scores = 0
+        corrective = False
+        node_predict = node
+        for sentence in comment:
+            for word_s in sentence:
+                for word_b in bank_words:
+                    if word_s == word_b["word"]:
+                        if word_b["node"] == "pos":
+                            scores +=1
+                        elif word_b["node"] == "neg":
+                            scores -=1
+                        break
+        if scores > 0:
+            node_predict = "pos"
+        else:
+            node_predict = "neg"
+
+        if node_predict == node:
+            corrective = True
+        results.append({"comment":comment,"scores":scores,"node_actual":node,"node_predict":node_predict,"corrective":corrective})
+
+    return results
+
+
+
+
+#test_bank("patong",80,7)
+find_tf_idf("patong",95,7)
+#find_tfidf_main()
