@@ -68,7 +68,7 @@ def frequency_noun_bydomain(domain_name):
     bf = dict(Counter(all_words))  # counting words
     af = {k: bf[k]
         for k in sorted(bf, key=bf.get, reverse=True)}  # sort asending
-    with open('./domain/'+domain_name+'_noun.csv', mode='w', newline='', encoding='utf-8') as writefile:
+    with open('./'+domain_name+'/'+domain_name+'_noun.csv', mode='w', newline='', encoding='utf-8') as writefile:
         fieldnames = ["noun","count"]
         writer = csv.DictWriter(writefile, fieldnames=fieldnames)
         writer.writeheader()
@@ -78,13 +78,12 @@ def frequency_noun_bydomain(domain_name):
                 count = af.get(element, '')
                 writer.writerow({"noun":noun,"count":count})
 
-    with open('./domain/'+domain_name+'.csv', mode='w', newline='', encoding='utf-8') as writefile:
+    with open('./'+domain_name+'/'+domain_name+'.csv', mode='w', newline='', encoding='utf-8') as writefile:
         fieldnames = ["comment"]
         writer = csv.DictWriter(writefile, fieldnames=fieldnames)
         writer.writeheader()
         for comment in comments :
             writer.writerow({"comment":comment})    
-
 
 #frequency_noun_bydomain("patong")
 
@@ -122,14 +121,14 @@ def transform_pos_neg_bydomain(domain_name):
             comment = row["comment"]
             comments_pos.append(comment)    
 
-    with open('./domain/'+domain_name+'_neg.csv', mode='w', newline='', encoding='utf-8') as writefile:
+    with open('./'+domain_name+'/'+domain_name+'_neg.csv', mode='w', newline='', encoding='utf-8') as writefile:
         fieldnames = ["comment"]
         writer = csv.DictWriter(writefile, fieldnames=fieldnames)
         writer.writeheader()
         for comment in comments_neg :
             writer.writerow({"comment":comment})     
    
-    with open('./domain/'+domain_name+'_pos.csv', mode='w', newline='', encoding='utf-8') as writefile:
+    with open('./'+domain_name+'/'+domain_name+'_pos.csv', mode='w', newline='', encoding='utf-8') as writefile:
         fieldnames = ["comment"]
         writer = csv.DictWriter(writefile, fieldnames=fieldnames)
         writer.writeheader()
@@ -159,17 +158,17 @@ def tf_idf_fun(domain_name,node,percentile,type) :
         use_vb = use_aj = use_av = True
 
     lines = 0
-    with open('./domain/'+domain_name+'_noun.csv', mode='r', encoding='utf-8') as csv_file:
+    with open('./'+domain_name+'/'+domain_name+'_noun.csv', mode='r', encoding='utf-8') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         lines= len(list(csv_reader))
 
     top_lines = int(lines-percentile/100*(lines+1))
-    #print("Domain "+domain_name+", p",percentile,", type",type,", count nouns at p",percentile,"is",top_lines)
+    print("Domain "+domain_name+", p",percentile,", type",type,", count nouns at p",percentile,"is",top_lines)
 
     ##noun top at percentile
     words_noun = []
     ##
-    with open('./domain/'+domain_name+'_noun.csv', mode='r', encoding='utf-8') as csv_file:
+    with open('./'+domain_name+'/'+domain_name+'_noun.csv', mode='r', encoding='utf-8') as csv_file:
         csv_reader = csv.DictReader(csv_file)    
         index = 0
         for row in csv_reader:
@@ -184,7 +183,7 @@ def tf_idf_fun(domain_name,node,percentile,type) :
     ##
     
     ##pos
-    with open(f'./domain/{domain_name}_{node}.csv', mode='r', encoding='utf-8') as csv_file:
+    with open(f'./{domain_name}/{domain_name}_{node}.csv', mode='r', encoding='utf-8') as csv_file:
         csv_reader = csv.DictReader(csv_file)   
         for row in csv_reader:
             sentences = []
@@ -223,7 +222,7 @@ def tf_idf_fun(domain_name,node,percentile,type) :
                                 count_right +=1
                                 right +=1
                         index +=1
-    with open(f'./domain/{domain_name}_match_p{percentile}_type{type}_{node}_.csv', mode='w', newline='', encoding='utf-8') as writefile:
+    with open(f'./{domain_name}/{domain_name}_match_p{percentile}_type{type}_{node}_.csv', mode='w', newline='', encoding='utf-8') as writefile:
         fieldnames = ["word","noun","position","range","index"]
         writer = csv.DictWriter(writefile, fieldnames=fieldnames)
         writer.writeheader()
@@ -250,7 +249,7 @@ def tf_idf_fun(domain_name,node,percentile,type) :
     words_noun_f = dict(Counter(words_noun_f))  # counting words
 
     comments = []
-    with open(f'./domain/{domain_name}_{node}.csv', mode='r', encoding='utf-8') as csv_file:
+    with open(f'./{domain_name}/{domain_name}_{node}.csv', mode='r', encoding='utf-8') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         
         for row in csv_reader:
@@ -275,7 +274,7 @@ def tf_idf_fun(domain_name,node,percentile,type) :
                             #break
                     
     count_comment = 0
-    with open(f'./domain/{domain_name}_{node}.csv', mode='r', encoding='utf-8') as csv_file:
+    with open(f'./{domain_name}/{domain_name}_{node}.csv', mode='r', encoding='utf-8') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         count_comment= len(list(csv_reader))
 
@@ -305,7 +304,7 @@ def tf_idf_fun(domain_name,node,percentile,type) :
 
         tf = count_f/count_overall_f
         val_for_idf = count_comment/count_comment_f
-        print(word_c,node,count_comment,count_comment_f)
+        #print(word_c,node,count_comment,count_comment_f)
         idf = math.log10(val_for_idf)
         tf_idf = tf * idf
         #if tf_idf > 1:
@@ -362,7 +361,7 @@ def find_tf_idf(domain_name,percentile,type):
 
     bankWordSorted = sorted(tf_idf_bank_word, key=lambda  tfIdf: abs(tfIdf["tf-idf-val"]),reverse=True)
 
-    with open(f'./domain/{domain_name}_tfidf_p{percentile}_type{type}.csv', mode='w', newline='', encoding='utf-8') as writefile:
+    with open(f'./{domain_name}/{domain_name}_tfidf_p{percentile}_type{type}.csv', mode='w', newline='', encoding='utf-8') as writefile:
         fieldnames = ["word","tf-idf-pos","tf-idf-neg","tf-idf-val","node-label"]
         writer = csv.DictWriter(writefile, fieldnames=fieldnames)
         writer.writeheader()
@@ -371,11 +370,16 @@ def find_tf_idf(domain_name,percentile,type):
 
 def find_tfidf_main():
     percentiles = [95,90,85,80,75]
-    for p in percentiles :
-        type = 1 
-        while type <=7:
-            find_tf_idf("patong",p,type)
-            type+=1
+    domains = ["patong","promthep","wat"]
+    transformdata()
+    for domain in domains:
+        frequency_noun_bydomain(domain)
+        transform_pos_neg_bydomain(domain)
+        for p in percentiles :
+            type = 1 
+            while type <=7:
+                find_tf_idf(domain,p,type)
+                type+=1
 
 def test_bank(domain_name,p,type):
     bank_words = []
@@ -450,5 +454,5 @@ def check_by_comment(comments,bank_words,node):
 
 
 #test_bank("patong",80,7)
-find_tf_idf("patong",95,7)
-#find_tfidf_main()
+#find_tf_idf("patong",95,7)
+find_tfidf_main()
