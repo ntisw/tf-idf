@@ -385,14 +385,15 @@ def test_bank(domain_name,p,type):
     bank_words = []
     comments_pos = []
     comments_neg = []
-    with open(f'./domain/{domain_name}_tfidf_p{p}_type{type}.csv', mode='r', encoding='utf-8') as csv_file:
+    with open(f'./{domain_name}/{domain_name}_tfidf_p{p}_type{type}.csv', mode='r', encoding='utf-8') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for row in csv_reader:
             word = row["word"]
             node_label = row["node-label"]
-            bank_words.append({"word":word,"node":node_label})
+            tf_idf = row["tf-idf-val"]
+            bank_words.append({"word":word,"node":node_label,"tfidf":tf_idf})
     
-    with open(f'./domain/{domain_name}_pos.csv', mode='r', encoding='utf-8') as csv_file:
+    with open(f'./{domain_name}/{domain_name}_pos.csv', mode='r', encoding='utf-8') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for row in csv_reader:
             sentences = []
@@ -404,7 +405,7 @@ def test_bank(domain_name,p,type):
                 sentences.append(word)
             comments_pos.append(sentences)
 
-    with open(f'./domain/{domain_name}_neg.csv', mode='r', encoding='utf-8') as csv_file:
+    with open(f'./{domain_name}/{domain_name}_neg.csv', mode='r', encoding='utf-8') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for row in csv_reader:
             sentences = []
@@ -417,42 +418,122 @@ def test_bank(domain_name,p,type):
             comments_neg.append(sentences)
     
     results = check_by_comment(comments_pos,bank_words,"pos") + check_by_comment(comments_neg,bank_words,"neg")
+    count_corrective_by_node_label =0
+    count_corrective_by_tfidf = 0
+    count_incorrect_by_node_label = 0
+    count_incorrect_by_tfidf = 0
+    count_all_comment = len(results)
+    
+    for result in results :
+        if result["corrective_by_node_label"]:
+            count_corrective_by_node_label +=1
+        else :
+            count_incorrect_by_node_label+=1
 
-    for result in results:
-        print(result)
+        if result["corrective_by_tfidf"]:
+            count_corrective_by_tfidf +=1
+        else:
+            count_incorrect_by_tfidf+=1
+
+    accuracy_percent_by_node_label = count_corrective_by_node_label/count_all_comment*100
+    accuracy_percent_by_tfidf = count_corrective_by_tfidf/count_all_comment*100 
+    count_incorrect_by_node_label = count_all_comment - count_corrective_by_node_label
+    count_incorrect_by_tfidf = count_all_comment - count_corrective_by_tfidf
+    accuracy_node_label = {"comment":"","scores_by_node":""
+        ,"score_by_tfidf":"by node label"
+        ,"score_by_tfidf_sum":"correct"
+        ,"node_actual":count_corrective_by_node_label
+        ,"node_predict_by_node_label":"incorrect"
+        ,"corrective_by_node_label":count_incorrect_by_node_label
+        ,"node_predict_by_tfidf":"accuracy"
+        ,"corrective_by_tfidf":accuracy_percent_by_node_label}
+    accuracy_tfidf = {"comment":"","scores_by_node":""
+        ,"score_by_tfidf":"by tfidf"
+        ,"score_by_tfidf_sum":"correct"
+        ,"node_actual":count_corrective_by_tfidf
+        ,"node_predict_by_node_label":"incorrect"
+        ,"corrective_by_node_label":count_incorrect_by_tfidf
+        ,"node_predict_by_tfidf":"accuracy"
+        ,"corrective_by_tfidf":accuracy_percent_by_tfidf}
+
+    results.append(accuracy_node_label)
+    results.append(accuracy_tfidf)
+
+    with open(f'./test_{domain_name}/{domain_name}_tfidf_p{p}_type{type}.csv', mode='w', newline='', encoding='utf-8') as writefile:
+        fieldnames = ["comment","scores_by_node","score_by_tfidf","score_by_tfidf_sum","node_actual"
+        ,"node_predict_by_node_label","corrective_by_node_label","node_predict_by_tfidf","corrective_by_tfidf"]
+        writer = csv.DictWriter(writefile, fieldnames=fieldnames)
+        writer.writeheader()
+        
+        for result in results :
+            writer.writerow(result)   
         
 
 def check_by_comment(comments,bank_words,node):
     
     results = []
-    
     for comment in comments:
         scores = 0
-        corrective = False
-        node_predict = node
+        scores_tfidf = 0
+        scores_tfidf_string = ""
+
+        corrective_by_node = False
+        corrective_by_tfidf = False
+        node_predict_by_node = node
+        node_predict_by_tfidf = node
+        index = 0
         for sentence in comment:
             for word_s in sentence:
                 for word_b in bank_words:
                     if word_s == word_b["word"]:
+                        s_tfidf =float(word_b["tfidf"])
+                        scores_tfidf += s_tfidf
+                        if index == 0 :
+                            scores_tfidf_string += f'{word_b["word"]}{s_tfidf}'
+                        else :
+                            scores_tfidf_string += f', {word_b["word"]}{s_tfidf}'
+                        index += 1
                         if word_b["node"] == "pos":
                             scores +=1
                         elif word_b["node"] == "neg":
                             scores -=1
                         break
         if scores > 0:
-            node_predict = "pos"
+            node_predict_by_node = "pos"
         else:
-            node_predict = "neg"
+            node_predict_by_node = "neg"
 
-        if node_predict == node:
-            corrective = True
-        results.append({"comment":comment,"scores":scores,"node_actual":node,"node_predict":node_predict,"corrective":corrective})
+        if scores_tfidf >= 0 :
+            node_predict_by_tfidf = "pos"
+        else:
+            node_predict_by_tfidf = "neg"
+
+        if node_predict_by_node == node:
+            corrective_by_node = True
+
+        if node_predict_by_tfidf == node:
+            corrective_by_tfidf = True
+
+        results.append({"comment":comment,"scores_by_node":scores
+        ,"score_by_tfidf":scores_tfidf_string
+        ,"score_by_tfidf_sum":scores_tfidf
+        ,"node_actual":node
+        ,"node_predict_by_node_label":node_predict_by_node
+        ,"corrective_by_node_label":corrective_by_node
+        ,"node_predict_by_tfidf":node_predict_by_tfidf
+        ,"corrective_by_tfidf":corrective_by_tfidf})
 
     return results
+def test_all_types_by_domain(domain_name):
+    percentiles = [95,90,85,80,75]
+    for p in percentiles :
+        type = 1
+        while type < 8:
+            test_bank(domain_name,p,type)
+            print(f"test {domain_name} at p{p} type{type}")
+            type+=1
 
-
-
-
-#test_bank("patong",80,7)
+test_all_types_by_domain("patong")
 #find_tf_idf("patong",95,7)
-find_tfidf_main()
+#find_tfidf_main()
+
