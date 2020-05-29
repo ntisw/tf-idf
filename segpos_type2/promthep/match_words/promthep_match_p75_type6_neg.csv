@@ -1,0 +1,9 @@
+word,noun,position,range,index
+(มาก - ADV), - NOUN),right,4,5
+(มาก - ADV), - NOUN),left,3,5
+(โปรด - ADJ), - NOUN),right,3,5
+(โปรด - ADJ), - NOUN),right,1,5
+(โปรด - ADJ), - NOUN),left,1,5
+(โปรด - ADJ), - NOUN),left,3,5
+(โปรด - ADJ),(ผู้ - NOUN),left,1,5
+(โปรด - ADJ),(ถูกต้อง - NOUN),right,1,5

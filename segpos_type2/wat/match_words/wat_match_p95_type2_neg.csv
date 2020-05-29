@@ -1,0 +1,7 @@
+word,noun,position,range,index
+(เก่า - ADJ),(วัด - NOUN),left,4,41
+(เก่า - ADJ),(ภูเก็ต - NOUN),right,1,41
+(เก่า - ADJ), - NOUN),right,2,41
+(เก่า - ADJ), - NOUN),right,1,41
+(เก่า - ADJ), - NOUN),left,3,41
+(เก่า - ADJ), - NOUN),left,4,41

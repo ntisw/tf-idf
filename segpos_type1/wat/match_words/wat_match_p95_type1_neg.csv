@@ -1,0 +1,7 @@
+word,noun,position,range,index
+(เยี่ยมชม - VERB),(สถานที่ - NOUN),left,1,6
+(ไป - VERB),(สถานที่ - NOUN),left,3,4
+(ท่องเที่ยว - VERB),(สถานที่ - NOUN),right,1,8
+(มี - VERB),(การ - NOUN),left,1,2
+(วัด - VERB),(การ - NOUN),left,2,1
+(ตกแต่ง - VERB),(การ - NOUN),right,1,4

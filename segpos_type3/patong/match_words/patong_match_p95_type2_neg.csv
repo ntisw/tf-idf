@@ -1,0 +1,15 @@
+word,noun,position,range,index
+(น่าเกลียด - ADJ),(คน - NOUN),right,1,1
+(มีเสียง - ADJ),(คน - NOUN),right,3,3
+(ดัง - ADJ),(คน - NOUN),right,4,4
+(มากมาย - ADJ),(คุณ - NOUN),left,3,5
+(ย้าย - ADJ),(คน - NOUN),left,3,2
+(โดยทั่วไป - ADJ),(ป่า - NOUN),right,4,4
+(โดยทั่วไป - ADJ),(ตอง - NOUN),right,3,4
+(เหม็น - ADJ),(ถนน - NOUN),right,3,5
+(สกปรก - ADJ),(ชายหาด - NOUN),left,2,3
+(สกปรก - ADJ),(น้ำ - NOUN),right,1,3
+(น้อย - ADJ),(น้ำ - NOUN),left,2,11
+(มาก - ADJ),(คน - NOUN),right,2,3
+(ใหญ่ - ADJ),(ถนน - NOUN),right,1,5
+(ส่วนตัว - ADJ),(พื้นที่ - NOUN),right,1,2

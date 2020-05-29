@@ -1,0 +1,15 @@
+word,noun,position,range,index
+(สถานที่ท่องเที่ยว - VERB),(วัฒนธรรม - NOUN),left,2,8
+(ชม - VERB),(วัฒนธรรม - NOUN),left,3,7
+(เยี่ยม - VERB),(วัฒนธรรม - NOUN),left,4,6
+(ดั้งเดิม - ADJ),(วัฒนธรรม - NOUN),right,2,12
+(ไป - VERB),(วัด - NOUN),left,1,0
+(รอ - VERB),(วัด - NOUN),right,2,3
+(ไป - VERB),(วัด - NOUN),right,3,4
+(เช็ค - VERB),(วัด - NOUN),left,2,9
+(เก่า - ADJ),(วัด - NOUN),left,4,7
+(มี - VERB),(วัด - NOUN),right,1,2
+(ตกแต่ง - VERB),(วัด - NOUN),right,3,4
+(มี - VERB),(การ - NOUN),left,1,2
+(ตกแต่ง - VERB),(การ - NOUN),right,1,4
+(ดี - ADV),(การ - NOUN),right,3,6

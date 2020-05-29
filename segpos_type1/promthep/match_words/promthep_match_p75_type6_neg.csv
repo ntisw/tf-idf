@@ -1,0 +1,15 @@
+word,noun,position,range,index
+(แออัด - ADJ),(คน - NOUN),right,3,3
+(มาก - ADV),(คน - NOUN),right,4,4
+(ถูกต้อง - ADJ),(แผนที่ - NOUN),right,2,4
+(ถูกต้อง - ADJ),(สถานที่ - NOUN),right,2,8
+(นัก - ADV),(สถานที่ - NOUN),right,4,10
+(นัก - ADV),(จำนวน - NOUN),left,2,10
+(ถูกต้อง - ADJ),(จำนวน - NOUN),left,4,8
+(มาก - ADJ),(จำนวน - NOUN),right,1,13
+(ถูกต้อง - ADJ),(แผนที่ - NOUN),right,3,8
+(มาก - ADJ),(แผนที่ - NOUN),left,2,13
+(ผิด - ADJ),(แผนที่ - NOUN),right,3,18
+(นัก - ADV),(ท่องเที่ยว - NOUN),left,1,10
+(ถูกต้อง - ADJ),(ท่องเที่ยว - NOUN),left,3,8
+(มาก - ADJ),(ท่องเที่ยว - NOUN),right,2,13

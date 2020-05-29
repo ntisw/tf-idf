@@ -1,0 +1,21 @@
+word,noun,position,range,index
+(ที่สุด - ADV),(สถานที่ - NOUN),right,3,3
+(บาง - ADV),(คุณ - NOUN),right,1,13
+(ขึ้น - ADV),(เวลา - NOUN),left,2,17
+(หลาย - ADV),(สถานที่ - NOUN),left,1,1
+(กว่า - ADV),(สถานที่ - NOUN),right,3,5
+(โดยเฉพาะอย่างยิ่ง - ADV),(ชายหาด - NOUN),left,3,6
+(มากมาย - ADV),(ชายหาด - NOUN),right,3,12
+(รอบๆ - ADV),(ชายหาด - NOUN),right,4,13
+(มาก - ADV),(คุณ - NOUN),right,1,6
+(กว่า - ADV),(คุณ - NOUN),right,2,7
+(ที่สุด - ADV),(ชายหาด - NOUN),right,3,9
+(ที่สุด - ADV),(หาด - NOUN),right,3,8
+(เลย - ADV),(ป่า - NOUN),left,2,10
+(เลย - ADV),(ตอง - NOUN),left,3,10
+(ทุก - ADV),(คน - NOUN),left,1,0
+(ที่นี่ - ADV),(คน - NOUN),right,2,3
+(บาง - ADV),(บาท - NOUN),left,4,14
+(ที่สุด - ADV),(ชายหาด - NOUN),right,4,4
+(เกินไป - ADV),(ถนน - NOUN),right,2,6
+(เลย - ADV),(สถานที่ - NOUN),right,3,5

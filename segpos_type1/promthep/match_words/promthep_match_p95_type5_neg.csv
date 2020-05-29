@@ -1,0 +1,11 @@
+word,noun,position,range,index
+(มาก - ADV),(คน - NOUN),right,4,4
+(ผ่าน - VERB),(พระอาทิตย์ - NOUN),left,3,7
+(ตก - VERB),(พระอาทิตย์ - NOUN),right,1,11
+(*แตกต่าง - VERB),(พระอาทิตย์ - NOUN),right,2,12
+(ดึง - VERB),(คน - NOUN),left,1,4
+(พยายาม - VERB),(คน - NOUN),left,2,3
+(ผ่าน - VERB),(คน - NOUN),right,2,7
+(เปลี่ยน - VERB),(สถานที่ - NOUN),left,2,4
+(ดูแล - VERB),(สถานที่ - NOUN),left,4,2
+(นัก - ADV),(สถานที่ - NOUN),right,4,10

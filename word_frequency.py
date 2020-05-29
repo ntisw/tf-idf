@@ -245,7 +245,7 @@ def tf_idf_fun(domain_name,node,percentile,type) :
     af = {k: bf[k]
         for k in sorted(bf, key=bf.get, reverse=True)}     
     
-###frequency noun 
+    ###frequency noun 
     words_noun_f = dict(Counter(words_noun_f))  # counting words
 
     comments = []
@@ -533,7 +533,9 @@ def test_all_types_by_domain(domain_name):
             print(f"test {domain_name} at p{p} type{type}")
             type+=1
 
-test_all_types_by_domain("patong")
+#test_all_types_by_domain("patong")
+#test_all_types_by_domain("wat")
+#test_all_types_by_domain("promthep")
 #find_tf_idf("patong",95,7)
 #find_tfidf_main()
 

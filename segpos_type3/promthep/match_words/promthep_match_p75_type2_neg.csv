@@ -1,0 +1,8 @@
+word,noun,position,range,index
+(เยอะ - ADJ),(คน - NOUN),right,1,1
+(ที่ผ่านมา - ADJ),(พระอาทิตย์ - NOUN),left,2,5
+(ที่ผ่านมา - ADJ),(คน - NOUN),right,1,5
+(มาก - ADJ),(คุณ - NOUN),left,4,11
+(มาก - ADJ),(นักท่องเที่ยว - NOUN),right,2,11
+(มาก - ADJ),(จำนวน - NOUN),right,1,11
+(มาก - ADJ),(แผนที่ - NOUN),left,2,11
