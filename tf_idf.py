@@ -2,17 +2,27 @@ import csv
 import ast
 from collections import Counter
 import math
+
+# Use to merge a node of comments by rating into a domain
 def merge_comments_with_node_by_domain(domain_name,dir_segpos):
+    """This is a merge node of comments by domain name.
+    That merge google negative comments and tripadvisor negative comments 
+    in one file.  
+
+    Arguments:
+        domain_name {string} -- Use for path file of domain 
+        dir_segpos {string} -- Use for path file into folder segpos type
+    """
     path_google_neg = f'{dir_segpos}/data/{domain_name}_google_negative.csv'
     path_tripadvisor_neg = f'{dir_segpos}/data/{domain_name}_trip_negative.csv'
     
     path_google_pos = f'{dir_segpos}/data/{domain_name}_google_positive.csv'
     path_tripadvisor_pos = f'{dir_segpos}/data/{domain_name}_trip_positive.csv'
 
-    #get negative comments
+    # get negative comments
     neg_comments = get_data_by_one_column(path_google_neg,"comment") \
          + get_data_by_one_column(path_tripadvisor_neg,"comment")
-    #get positive comments
+    # get positive comments
     pos_comments = get_data_by_one_column(path_google_pos,"comment") \
          + get_data_by_one_column(path_tripadvisor_pos,"comment") 
 
@@ -22,6 +32,8 @@ def merge_comments_with_node_by_domain(domain_name,dir_segpos):
 
     write_data_by_one_column(path_pos_comment_by_domain,"comment",pos_comments)
     write_data_by_one_column(path_neg_comment_by_domain,"comment",neg_comments)
+
+# Use for get any rows csv by only one column.
 def get_data_by_one_column(path,column_name):
     rows = []
     with open(path, mode='r', encoding='utf-8') as csv_file:
@@ -30,6 +42,8 @@ def get_data_by_one_column(path,column_name):
             data_at_row = row[column_name]
             rows.append(data_at_row)
     return rows
+
+# Use for write a csv file by only one column.
 def write_data_by_one_column(path,column_name,data):
     with open(path, mode='w', newline='', encoding='utf-8') as writefile:
         fieldnames = [column_name]
@@ -37,12 +51,16 @@ def write_data_by_one_column(path,column_name,data):
         writer.writeheader()
         for row in data :
             writer.writerow({column_name:row})  
+
+# Use for write a csv file by more than one column.
 def write_data_by_columns(path,fieldnames,data):
     with open(path, mode='w', newline='', encoding='utf-8') as writefile:
         writer = csv.DictWriter(writefile, fieldnames=fieldnames)
         writer.writeheader()
         for row in data :
             writer.writerow(row)  
+
+# Output of this file can be use for any funtions. 
 def transforming_comments(comments):
     transformed_comments = []
     for comment in comments:
@@ -53,6 +71,11 @@ def transforming_comments(comments):
         comment = comment.replace('],[','], [')
         transformed_comments.append(comment)
     return transformed_comments
+
+# Divide comments by 2 node.
+# There are positive comments and negative comments.
+# Actual rating more than 2.5 there is a positive comment 
+# and other comments there is a negative comment. 
 def divide_comments_by_pos_neg(comments,rating):
     comments_with_node_dict = []
     index = 0
@@ -63,12 +86,16 @@ def divide_comments_by_pos_neg(comments,rating):
             comments_with_node_dict.append({"comment":comments[index],"node":"neg"})
         index +=1
     return comments_with_node_dict
+
+# Use to return comments by node
 def get_comments_by_node(comments_with_node_dict,node):
     comments = []
     for comment in comments_with_node_dict:
         if comment["node"] == node:
             comments.append(comment["comment"])
     return comments
+
+# Use to return noun words that found into frequency words
 def get_noun_from_frequency_words(frequency_words):
     noun_words = []
     for element in frequency_words :
@@ -77,6 +104,10 @@ def get_noun_from_frequency_words(frequency_words):
             count = frequency_words.get(element, '')
             noun_words.append({"noun":noun,"count":count})
     return noun_words
+
+# Use for find frequency noun words by domain that contain
+# comments in google and tripadvisor.
+# Than write file.
 def frequency_noun_by_domain(domain_name,dir_segpos):
     path_google = f'{dir_segpos}/data/{domain_name}_google.csv'
     path_tripadvisor = f'{dir_segpos}/data/{domain_name}_trip.csv'
@@ -109,11 +140,13 @@ def frequency_noun_by_domain(domain_name,dir_segpos):
     af = {k: bf[k]
         for k in sorted(bf, key=bf.get, reverse=True)}  # sort asending
 
-    # write file .csv
+    # write file noun
     path_noun_frequency_file = f'{dir_segpos}/{domain_name}/{domain_name}_noun.csv'
     fieldnames = ["noun","count"]
     noun_words = get_noun_from_frequency_words(af)
     write_data_by_columns(path_noun_frequency_file,fieldnames,noun_words)
+
+# Use to find tfidf by specific node, percentile, type into a domain 
 def tf_idf_fun(domain_name,node,percentile,type,dir_segpos) :
     use_vb = False
     use_aj = False
@@ -197,14 +230,7 @@ def tf_idf_fun(domain_name,node,percentile,type,dir_segpos) :
     fieldnames_match_words = ["word","noun","position","range","index"]
     write_data_by_columns(path_match_words,fieldnames_match_words,words_match)
     
-    # with open(path_match_words, mode='w', newline='', encoding='utf-8') as writefile:
-    #     fieldnames = ["word","noun","position","range","index"]
-    #     writer = csv.DictWriter(writefile, fieldnames=fieldnames)
-    #     writer.writeheader()
-    #     for word in words_match :
-    #         writer.writerow(word) 
-
-    ##count word   
+    # count word   
     words_match_forcount = []    
     words_forcheck = []
     words_noun_f = []
@@ -214,7 +240,7 @@ def tf_idf_fun(domain_name,node,percentile,type,dir_segpos) :
         words_forcheck.append(word["word"])
         words_noun_f.append(word["noun"])
 
-    bf = dict(Counter(words_match_forcount))  # counting words
+    bf = dict(Counter(words_match_forcount))  # counting words function
     words_forcheck = dict(Counter(words_forcheck))
     af = {k: bf[k]
         for k in sorted(bf, key=bf.get, reverse=True)}     
@@ -289,6 +315,8 @@ def tf_idf_fun(domain_name,node,percentile,type,dir_segpos) :
             tf_idf_arr.append({"word":word_c,"tf-idf":-tf_idf})
 
     return tf_idf_arr
+
+# Use to find tfidf by specific percentile, type into a domain
 def find_tfidf_at(domain_name,percentile,type,dir_segpos):
     tf_idf_pos = tf_idf_fun(domain_name,"pos",percentile,type,dir_segpos)
     tf_idf_neg = tf_idf_fun(domain_name,"neg",percentile,type,dir_segpos)
@@ -336,6 +364,8 @@ def find_tfidf_at(domain_name,percentile,type,dir_segpos):
     path_tfidf = f'{dir_segpos}/{domain_name}/bankwords/{domain_name}_tfidf_p{percentile}_type{type}.csv'
     fieldnames_tfidf = ["word","tf-idf-pos","tf-idf-neg","tf-idf-val","node-label"]
     write_data_by_columns(path_tfidf,fieldnames_tfidf,bankWordSorted)
+
+# Use to find tfidf by all percentiles, all types into any domains 
 def find_tfidf(domains,dir_segpos):
     percentiles = [95,90,85,80,75]
     for domain in domains:
@@ -344,6 +374,8 @@ def find_tfidf(domains,dir_segpos):
             while type <=7:
                 find_tfidf_at(domain,p,type,dir_segpos)
                 type+=1
+
+# Use to test bankword by specific percentile, type, into a domain
 def test_bank(domain_name,p,type,dir_segpos):
     bank_words = []
     comments_pos = []
@@ -391,6 +423,8 @@ def test_bank(domain_name,p,type,dir_segpos):
     results = merge_expert_corrective(results,domain_name)
     path_test_result = f'{dir_segpos}/{domain_name}/test_results/type{type}/{domain_name}_tfidf_p{p}_type{type}.csv'
     write_data_by_columns(path_test_result,fieldnames_test_result,results)
+
+# Use to check by comments with bankword by a node
 def check_by_comment(comments,bank_words,node):
     
     results = []
@@ -446,6 +480,8 @@ def check_by_comment(comments,bank_words,node):
         ,"corrective_by_tfidf":corrective_by_tfidf})
 
     return results
+
+# Use to test bankword by all percentiles, all types into a domain
 def test_all_types_by_domain(domain_name,dir_segpos):
     percentiles = [95,90,85,80,75]
     for p in percentiles :
@@ -454,6 +490,9 @@ def test_all_types_by_domain(domain_name,dir_segpos):
             test_bank(domain_name,p,type,dir_segpos)
             print(f"test {domain_name} at p{p} type{type}")
             type+=1
+
+# Use to combine the set of functions that contain find tfidf function
+# and test bankword function for any domains
 def tf_idf_by_segpos_type(segpos_t):
     dir_segpos = f'./segpos_type{segpos_t}'
     path_segpos_t = f'./data/segpos_type{segpos_t}.csv'
@@ -503,6 +542,8 @@ def tf_idf_by_segpos_type(segpos_t):
     #test tfidf
     for domain_name in domains_name:
         test_all_types_by_domain(domain_name,dir_segpos)
+
+# Use for sort the rating that merge for test bankwords
 def sort_rating():
     domains = ["Patong","Promthep","Wat"]
     expert_rating_all_file = []
@@ -538,6 +579,8 @@ def sort_rating():
         path_sorted_rating_by_expert = f'./data/{domain.lower()}_sorted_rating.csv'
         fields_name = ["actual_rating","expert"]
         write_data_by_columns(path_sorted_rating_by_expert,fields_name,sorted_expert_rating)
+
+# Use for test bankword by using rating experts
 def merge_expert_corrective(results,domain_name):
     new_results = []
     path_sorted_rating = f'./data/{domain_name}_sorted_rating.csv'
@@ -594,10 +637,14 @@ def merge_expert_corrective(results,domain_name):
     ,'corrective_expert_tfidf':count_corrective_expert_tfidf}
     new_results.append(new_result)    
     return new_results
+
+# Use for combine all type of word segment and POS tag (1,2,3 and 4)
 def main():
     sort_rating()
     tf_idf_by_segpos_type(1)
     tf_idf_by_segpos_type(2)
     tf_idf_by_segpos_type(3)
     tf_idf_by_segpos_type(4)
+
+# Use for run main() that contain all processes
 main()
