@@ -60,7 +60,7 @@ def write_data_by_columns(path,fieldnames,data):
         for row in data :
             writer.writerow(row)  
 
-# Output of this file can be use for any funtions. 
+# Output of this file can be use for any funtions of tf-idf. 
 def transforming_comments(comments):
     transformed_comments = []
     for comment in comments:
