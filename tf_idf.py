@@ -99,8 +99,8 @@ def get_comments_by_node(comments_with_node_dict,node):
 def get_noun_from_frequency_words(frequency_words):
     noun_words = []
     for element in frequency_words :
-        if element.find("NOUN") != -1:
-            noun  =  element
+        if element.find("NOUN") != -1 and element != '' and element != ' ' and element != ' - NOUN)':
+            noun  = element
             count = frequency_words.get(element, '')
             noun_words.append({"noun":noun,"count":count})
     return noun_words
