@@ -1,5 +1,12 @@
 word,noun,position,range,index
+(ดั้งเดิม - ADJ),(ภูเก็ต - NOUN),left,2,12
+(จึง - ADV),(ภูเก็ต - NOUN),right,3,17
+(ดั้งเดิม - ADJ),(ทาง - NOUN),right,3,12
 (ดั้งเดิม - ADJ),(วัฒนธรรม - NOUN),right,2,12
+(จึง - ADV),(โรงแรม - NOUN),left,4,17
 (เก่า - ADJ),(วัด - NOUN),left,4,7
+(เก่า - ADJ),(ภูเก็ต - NOUN),right,1,7
 (เก่า - ADJ),(เมือง - NOUN),right,2,7
 (ดี - ADV),(การ - NOUN),right,3,6
+(ดี - ADV),(อย่าง - NOUN),right,1,6
+(ดี - ADV),(อย่าง - NOUN),right,4,9

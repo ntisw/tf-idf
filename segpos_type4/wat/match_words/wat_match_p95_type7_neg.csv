@@ -1,11 +1,14 @@
 word,noun,position,range,index
+(นั่ง - VERB),(ของ - NOUN),left,4,18
+(กะ - VERB),(ของ - NOUN),right,3,25
 (ดั้งเดิม - ADJ),(ภูเก็ต - NOUN),left,2,12
 (จึง - ADV),(ภูเก็ต - NOUN),right,3,17
 (นั่ง - VERB),(ภูเก็ต - NOUN),right,4,18
-(จะ - VERB),(เยี่ยม - NOUN),left,3,3
-(ชม - VERB),(เยี่ยม - NOUN),right,1,7
-(สถานที่ท่องเที่ยว - VERB),(เยี่ยม - NOUN),right,2,8
+(ไป - VERB),(วัด - NOUN),left,1,0
+(รอ - VERB),(วัด - NOUN),right,2,3
+(ไป - VERB),(วัด - NOUN),right,3,4
 (เก่า - ADJ),(วัด - NOUN),left,4,7
+(ไป - VERB),(ภูเก็ต - NOUN),left,2,4
 (รอ - VERB),(ภูเก็ต - NOUN),left,3,3
 (เก่า - ADJ),(ภูเก็ต - NOUN),right,1,7
 (มี - VERB),(วัด - NOUN),right,1,2

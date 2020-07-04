@@ -1,17 +1,19 @@
 word,noun,position,range,index
 (ที่สุด - ADV),(สถานที่ - NOUN),right,3,3
+(ไป - ADV),(หาด - NOUN),left,3,0
+(ไป - ADV),(ชาย - NOUN),left,2,0
 (คืน - ADV),(เวลา - NOUN),right,2,21
+(ที่สุด - ADV),(ของ - NOUN),left,3,3
 (มาก - ADV),(คน - NOUN),left,2,15
+(หลาย - ADV),(สถานที่ - NOUN),left,1,1
 (มากมาย - ADV),(หาด - NOUN),right,3,17
 (มากมาย - ADV),(ชาย - NOUN),right,4,17
+(ไป - ADV),(อย่าง - NOUN),left,3,6
+(ไป - ADV),(อย่าง - NOUN),right,4,6
 (ที่สุด - ADV),(หาด - NOUN),right,3,10
 (ที่สุด - ADV),(ชาย - NOUN),right,4,10
 (ที่สุด - ADV),(หาด - NOUN),right,3,6
-(แต - ADV),(ร่ม - NOUN),left,2,17
 (มาก - ADV),(น้ำ - NOUN),right,2,14
 (มาก - ADV),(น้ำ - NOUN),left,1,14
-(เกิน - ADV),(ถนน - NOUN),right,2,6
 (มาก - ADV),(หาด - NOUN),right,1,7
 (มาก - ADV),(ชาย - NOUN),right,2,7
-(มาก - ADV),(ร่ม - NOUN),right,1,1
-(เกิน - ADV),(ร่ม - NOUN),right,2,2

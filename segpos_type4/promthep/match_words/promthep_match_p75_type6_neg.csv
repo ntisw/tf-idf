@@ -1,9 +1,13 @@
 word,noun,position,range,index
 (เยอะ - ADJ),(คน - NOUN),right,1,1
 (มาก - ADV),(คน - NOUN),right,2,2
+(แออัด - ADJ),(คน - NOUN),right,4,4
 (ที่ผ่านมา - ADJ),(พระอาทิตย์ - NOUN),left,2,5
 (ที่ผ่านมา - ADJ),(คน - NOUN),right,1,5
+(มาก - ADJ),(ของ - NOUN),left,3,11
+(ผิด - ADJ),(ของ - NOUN),right,2,16
 (มาก - ADJ),(นักท่องเที่ยว - NOUN),right,2,11
 (มาก - ADJ),(จำนวน - NOUN),right,1,11
+(โปรด - ADJ),(แผนที่ - NOUN),left,4,0
 (มาก - ADJ),(แผนที่ - NOUN),left,2,11
 (ผิด - ADJ),(แผนที่ - NOUN),right,3,16

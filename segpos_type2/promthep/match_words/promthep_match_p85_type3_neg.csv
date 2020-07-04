@@ -1,1 +1,5 @@
 word,noun,position,range,index
+(มาก - ADV),(คุณ - NOUN),left,4,18
+(มาก - ADV),(ของ - NOUN),left,3,18
+(มาก - ADV),(นัก - NOUN),right,3,18
+(มาก - ADV),(จำนวน - NOUN),right,1,18

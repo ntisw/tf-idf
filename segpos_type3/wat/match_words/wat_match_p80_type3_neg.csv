@@ -1,2 +1,6 @@
 word,noun,position,range,index
+(จึง - ADV),(ภูเก็ต - NOUN),right,3,17
+(จึง - ADV),(โรงแรม - NOUN),left,4,17
 (ดี - ADV),(การ - NOUN),right,3,6
+(ดี - ADV),(อย่าง - NOUN),right,1,6
+(ดี - ADV),(อย่าง - NOUN),right,4,9

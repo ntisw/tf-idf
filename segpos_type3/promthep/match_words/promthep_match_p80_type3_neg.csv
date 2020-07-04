@@ -1,2 +1,5 @@
 word,noun,position,range,index
-(มาก - ADV),(คน - NOUN),right,2,2
+(มาก - ADV),(วัด - NOUN),right,4,4
+(ก่อน - ADV),(วัด - NOUN),left,2,5
+(ก่อน - ADV),(รองเท้า - NOUN),right,1,5
+(อย่างไร - ADV),(เกอร์ - NOUN),right,4,14

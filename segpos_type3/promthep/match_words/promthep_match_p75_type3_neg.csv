@@ -1,2 +1,8 @@
 word,noun,position,range,index
-(มาก - ADV),(คน - NOUN),right,2,2
+(หลาย - ADV),(ทิวทัศน์ - NOUN),left,4,11
+(มาก - ADV),(วัด - NOUN),right,4,4
+(มาก - ADV),(พุทธ - NOUN),right,3,4
+(ก่อน - ADV),(วัด - NOUN),left,2,5
+(ก่อน - ADV),(รองเท้า - NOUN),right,1,5
+(อย่างไร - ADV),(เกอร์ - NOUN),right,4,14
+(อย่างไร - ADV),(อิฐ - NOUN),right,1,14

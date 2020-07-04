@@ -1,3 +1,4 @@
 word,noun,position,range,index
-(แออัด - ADJ),(คน - NOUN),right,3,3
 (ถูกต้อง - ADJ),(สถานที่ - NOUN),right,2,8
+(มาก - ADJ),(ของ - NOUN),left,3,13
+(ผิด - ADJ),(ของ - NOUN),right,2,18

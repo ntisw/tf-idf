@@ -1,6 +1,5 @@
 word,noun,position,range,index
 (มาก - ADV),(คน - NOUN),right,2,2
-(แออัด - VERB),(คน - NOUN),right,4,4
 (ดึง - VERB),(พระอาทิตย์ - NOUN),left,4,3
 (ตก - VERB),(พระอาทิตย์ - NOUN),right,1,8
 (*แตกต่าง - VERB),(พระอาทิตย์ - NOUN),right,2,9
@@ -12,13 +11,15 @@ word,noun,position,range,index
 (ผู้ดูแล - VERB),(สถานที่ - NOUN),left,4,1
 (ให้ - VERB),(สถานที่ - NOUN),right,1,6
 (ถูกต้อง - VERB),(สถานที่ - NOUN),right,2,7
+(ติดตาม - VERB),(ของ - NOUN),left,2,12
 (ถูกต้อง - VERB),(นักท่องเที่ยว - NOUN),left,2,7
 (ให้ - VERB),(นักท่องเที่ยว - NOUN),left,3,6
+(ติดตาม - VERB),(นักท่องเที่ยว - NOUN),right,3,12
 (ถูกต้อง - VERB),(จำนวน - NOUN),left,3,7
 (ให้ - VERB),(จำนวน - NOUN),left,4,6
+(ติดตาม - VERB),(จำนวน - NOUN),right,2,12
 (เปลี่ยน - VERB),(แผนที่ - NOUN),left,1,3
 (ผู้ดูแล - VERB),(แผนที่ - NOUN),left,3,1
 (ให้ - VERB),(แผนที่ - NOUN),right,2,6
 (ถูกต้อง - VERB),(แผนที่ - NOUN),right,3,7
-(ผู้ดูแล - VERB),(โปรด - NOUN),right,1,1
-(เปลี่ยน - VERB),(โปรด - NOUN),right,3,3
+(ติดตาม - VERB),(แผนที่ - NOUN),left,1,12

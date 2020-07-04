@@ -1,4 +1,7 @@
 word,noun,position,range,index
 (ดั้งเดิม - ADJ),(ภูเก็ต - NOUN),left,2,12
 (ดั้งเดิม - ADJ),(วัฒนธรรม - NOUN),right,2,12
+(ดั้งเดิม - ADJ),(ทาง - NOUN),right,3,12
+(เก่า - ADJ),(วัด - NOUN),left,4,6
 (ดี - ADJ),(การ - NOUN),right,3,6
+(ดี - ADJ),(อย่าง - NOUN),right,1,6

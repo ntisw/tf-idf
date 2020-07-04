@@ -1,6 +1,9 @@
 word,noun,position,range,index
 (ที่สุด - ADV),(สถานที่ - NOUN),right,3,3
 (ขึ้น - ADV),(เวลา - NOUN),left,2,17
+(ที่สุด - ADV),(ของ - NOUN),left,3,3
+(ยัง - ADV),(ภูเก็ต - NOUN),right,1,1
+(หลาย - ADV),(สถานที่ - NOUN),left,1,1
 (กว่า - ADV),(สถานที่ - NOUN),right,3,5
 (โดยเฉพาะอย่างยิ่ง - ADV),(ชายหาด - NOUN),left,3,6
 (มากมาย - ADV),(ชายหาด - NOUN),right,3,12
@@ -14,4 +17,6 @@ word,noun,position,range,index
 (มาก - ADV),(น้ำ - NOUN),left,1,12
 (เกินไป - ADV),(ถนน - NOUN),right,2,6
 (มาก - ADV),(ชายหาด - NOUN),right,1,5
+(มาก - ADV),(ของ - NOUN),right,4,5
+(เลย - ADV),(ของ - NOUN),right,2,5
 (เลย - ADV),(สถานที่ - NOUN),right,3,5

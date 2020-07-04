@@ -1,1 +1,6 @@
 word,noun,position,range,index
+(แออัด - ADJ),(คน - NOUN),right,4,4
+(มาก - ADV),(คุณ - NOUN),left,4,18
+(มาก - ADV),(ของ - NOUN),left,3,18
+(มาก - ADV),(นัก - NOUN),right,3,18
+(มาก - ADV),(จำนวน - NOUN),right,1,18
